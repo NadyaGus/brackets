@@ -3,17 +3,29 @@ module.exports = function check(str, bracketsConfig) {
   // bracketsComfig.flat(), из str сделать Set с помощью цикла for и метода set.add(). Затем сравнить str и Set
   let flatBrakets = bracketsConfig.flat();
   let strBrakets = flatBrakets.toString().replace(",", "");
-  let set = new Set();
+  let setStr = new Set();
+  let setBrackets = new Set();
+  let strObj = "";
+  let bracketsObj = "";
 
   for (let i = 0; i < str.length; i++) {
-    set.add(i);
+    setStr.add(str[i]); // возвращает объект {'(',')'} с уникальными значениями
+  }
+  for (let value of setStr) {
+    // делает из объекта строчку с уникальными значениями
+    strObj = strObj + value;
   }
 
-  if (set === flatBrakets) {
+  for (let i = 0; i < strBrakets.length; i++) {
+    setBrackets.add(strBrakets[i]);
+  }
+  for (let value of setBrackets) {
+    bracketsObj = bracketsObj + value;
+  }
+
+  if (str === strObj) {
     return true;
-  } else if (str === strBrakets) {
-    return true;
-  } else if (set === strBrakets) {
+  } else if (strObj === bracketsObj) {
     return true;
   } else {
     return false;
