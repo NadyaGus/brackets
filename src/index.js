@@ -1,33 +1,76 @@
 module.exports = function check(str, bracketsConfig) {
-  // your solution
-  // bracketsComfig.flat(), из str сделать Set с помощью цикла for и метода set.add(). Затем сравнить str и Set
-  let flatBrakets = bracketsConfig.flat();
-  let strBrakets = flatBrakets.toString().replace(",", "");
-  let setStr = new Set();
-  let setBrackets = new Set();
-  let strObj = "";
-  let bracketsObj = "";
-
+  let stack = [];
   for (let i = 0; i < str.length; i++) {
-    setStr.add(str[i]); // возвращает объект {'(',')'} с уникальными значениями
+    if (str[i] === '(' || str[i] === '[' || str[i] === '{' || str[i] === '1' || str[i] === '3' || str[i] === '5') {
+      stack.push(str[i]);
+    }
+    if (str[i] === ')') {
+      if (stack[stack.length - 1] !== '(') {
+        return false;
+      } else {
+        stack.pop();
+      }   
+    }
+    if (str[i] === ']') {
+      if (stack[stack.length - 1] !== '[') {
+        return false;
+      } else {
+        stack.pop();
+      }   
+    }
+    if (str[i] === '}') {
+      if (stack[stack.length - 1] !== '{') {
+        return false;
+      } else {
+        stack.pop();
+      }   
+    }
+    if (str[i] === '|') {
+      if (stack[stack.length - 1] !== '|' || stack.length === 0) {
+        stack.push(str[i]);
+      } else {
+        stack.pop();
+      }
+    }
+    if (str[i] === '2') {
+      if (stack[stack.length - 1] !== '1') {
+        return false;
+      } else {
+        stack.pop();
+      }   
+    }
+    if (str[i] === '4') {
+      if (stack[stack.length - 1] !== '3') {
+        return false;
+      } else {
+        stack.pop();
+      }   
+    }
+    if (str[i] === '6') {
+      if (stack[stack.length - 1] !== '5') {
+        return false;
+      } else {
+        stack.pop();
+      }   
+    }
+    if (str[i] === '7') {
+      if (stack[stack.length - 1] !== '7' || stack.length === 0) {
+        stack.push(str[i]);
+      } else {
+        stack.pop();
+      }
+    }
+    if (str[i] === '8') {
+      if (stack[stack.length - 1] !== '8' || stack.length === 0) {
+        stack.push(str[i]);
+      } else {
+        stack.pop();
+      }
+    }
   }
-  for (let value of setStr) {
-    // делает из объекта строчку с уникальными значениями
-    strObj = strObj + value;
-  }
-
-  for (let i = 0; i < strBrakets.length; i++) {
-    setBrackets.add(strBrakets[i]);
-  }
-  for (let value of setBrackets) {
-    bracketsObj = bracketsObj + value;
-  }
-
-  if (str === strObj) {
-    return true;
-  } else if (strObj === bracketsObj) {
+  if (stack.length === 0) {
     return true;
   } else {
-    return false;
-  }
+    return false
+  } ;
 };
